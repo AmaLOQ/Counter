@@ -1,0 +1,35 @@
+.inputLabel, .input {
+    color: skyblue;
+    font-weight: bold;
+}
+
+.inputLabel {
+    font-size: 20px;
+}
+
+.input, .inputError {
+    width: 150px;
+    height: 25px;
+
+    border: 3px solid skyblue;
+    border-radius: 2px;
+
+    text-align: center;
+    font-size: 15px;
+}
+.inputError {
+    background-color: #ff746f;
+    border: 3px solid red;
+    font-weight: bold;
+}
+
+
+.input:focus, .inputError {
+    outline: none;
+    border-radius: 2px;
+}
+
+.inputItemWrapper {
+    display: flex;
+    justify-content: space-between;
+}
