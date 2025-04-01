@@ -10,8 +10,10 @@ type InputPropsType = {
 }
 
 export const Input: React.FC <InputPropsType> = (props) => {
+
+
     const {value,text,onChange, error} = props
-    const onChangeSetValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         onChange(e.currentTarget.value)
     }
 
@@ -24,7 +26,7 @@ export const Input: React.FC <InputPropsType> = (props) => {
                 <input
                     value={value}
                     className={finalStyle} type={"number"}
-                    onChange={onChangeSetValue}
+                    onChange={onChangeHandler}
                 />
             </div>
         </div>

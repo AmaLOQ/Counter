@@ -2,35 +2,36 @@ import React from 'react';
 import s from '../SetBoard/SetBoard.module.css'
 import s2 from './ResultBox.module.css'
 import {Button} from "../Button/Button";
+import {useAppSelectors} from "../../common/hooks/useAppSelectors.ts";
+import {selectResultBox} from "../../model/resultBox-selectors.ts";
+import {useAppDispatch} from "../../common/hooks/useAppDispatch.ts";
+import {changeCountAC, resetCountAC} from "../../model/resultBox-reducer.ts";
 
 type ResulBoardPropsType = {
-    counter: string
-    maxValue: string
     error: boolean
-    start: boolean
-    changeCount: (value: string)=> void
-    resetCount: () => void
 }
 
 
 export const ResulBoard: React.FC <ResulBoardPropsType> = (props) => {
-    const {counter, maxValue,error, start, changeCount, resetCount} =props
+    const {error} =props
 
+    const resultBoard = useAppSelectors(selectResultBox)
 
+    const dispatch = useAppDispatch()
 
-    const valueStyle = +counter === +maxValue ? s2.equalValue: s2.enterValue
+    const valueStyle = +resultBoard.counter === +resultBoard.maxValueDisplay ? s2.equalValue: s2.enterValue
 
     const renderText = error
                     ? <div className={s2.equalValue}>Incorrect Values!</div>
-                    : start
-                        ? <div className={valueStyle}>{counter}</div>
+                    : resultBoard.start
+                        ? <div className={valueStyle}>{resultBoard.counter}</div>
                         : <div className={s2.enterValue}>Enter value and press 'set'</div>
 
     const onClickIncrValue = () => {
-        changeCount((+counter + 1).toString())
+        dispatch(changeCountAC())
     }
     const onClickResetValues = () => {
-        resetCount()
+        dispatch(resetCountAC())
     }
     return (
         <div className={s.setBoardWrapper}>
@@ -40,12 +41,12 @@ export const ResulBoard: React.FC <ResulBoardPropsType> = (props) => {
             <div className={s.setBoardButtonWrapper}>
                 <Button
                     onClick={onClickIncrValue}
-                    isDisabled={+counter === +maxValue ? true: false || error || !start}
+                    isDisabled={+resultBoard.counter === +resultBoard.maxValueDisplay ? true : false || error || !resultBoard.start}
                     text={'Incr'}
                 />
                 <Button
                     onClick={onClickResetValues}
-                    isDisabled={error || !start}
+                    isDisabled={error || !resultBoard.start}
                     text={'Reset'}
                 />
             </div>
