@@ -12,8 +12,8 @@ import {setButtonErrorAC} from "../model/setBoard-reducer.ts";
 export const App = () => {
     // стейты для хранения значений импутов, изменяются динамически в зависимости от изменения значения в импуте
     const setBoardState = useAppSelectors(selectSetBoard)
-    const dispatch = useAppDispatch();
 
+    const dispatch = useAppDispatch();
 
     const equalErrorInput = +setBoardState.starValue >= +setBoardState.maxValue
     const resultBoxError = equalErrorInput || +setBoardState.starValue < 0
